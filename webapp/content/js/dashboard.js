@@ -20,7 +20,7 @@ var NOT_EDITABLE = ['from', 'until', 'width', 'height', 'target', 'uniq', '_uniq
 var editor = null;
 
 var cookieProvider = new Ext.state.CookieProvider({
-  path: "/dashboard"
+  path: "/twiki/dashboard"
 });
 
 var NAV_BAR_REGION = cookieProvider.get('navbar-region') || 'north';
@@ -69,7 +69,7 @@ var ContextFieldValueRecord = Ext.data.Record.create([
 ]);
 
 var contextFieldStore = new Ext.data.JsonStore({
-  url: '/metrics/find/',
+  url: '/twiki/metrics/find/',
   root: 'metrics',
   idProperty: 'name',
   fields: ContextFieldValueRecord,
@@ -287,7 +287,7 @@ function initDashboard () {
       }),
       store: new Ext.data.JsonStore({
         method: 'GET',
-        url: '/metrics/find/',
+        url: '/twiki/metrics/find/',
         autoLoad: true,
         baseParams: {
           query: '',
@@ -868,7 +868,7 @@ function metricTreeSelectorShow(pattern) {
   }
 
   var loader = new Ext.tree.TreeLoader({
-    url: '/metrics/find/',
+    url: '/twiki/metrics/find/',
     requestMethod: 'GET',
     listeners: {beforeload: setParams}
   });
@@ -942,7 +942,7 @@ function graphAreaToggle(target, options) {
     var record = new GraphRecord({
       target: graphTargetString,
       params: myParams,
-      url: '/render?' + Ext.urlEncode(urlParams)
+      url: '/twiki/render?' + Ext.urlEncode(urlParams)
     });
     graphStore.add([record]);
     updateGraphRecords();
@@ -985,7 +985,7 @@ function importGraphUrl(targetUrl, options) {
     var record = new GraphRecord({
       target: graphTargetString,
       params: params,
-      url: '/render?' + Ext.urlEncode(urlParams)
+      url: '/twiki/render?' + Ext.urlEncode(urlParams)
       });
       graphStore.add([record]);
       updateGraphRecords();
@@ -1005,7 +1005,7 @@ function updateGraphRecords() {
     if (!params.uniq === undefined) {
         delete params["uniq"];
     }
-    item.set('url', '/render?' + Ext.urlEncode(params));
+    item.set('url', '/twiki/render?' + Ext.urlEncode(params));
     item.set('width', GraphSize.width);
     item.set('height', GraphSize.height);
     item.set('index', index);
@@ -1023,7 +1023,7 @@ function refreshGraph(index) {
   var node = graphView.getNode(index);
   var record = graphView.getRecord(node);
   record.data.params.uniq = Math.random();
-  record.set('url', '/render?' + Ext.urlEncode(record.get('params')));
+  record.set('url', '/twiki/render?' + Ext.urlEncode(record.get('params')));
 
   // This refreshNode method only refreshes the record data, it doesn't re-render
   // the template. Which is pretty useless... It would be more efficient if we
@@ -1952,7 +1952,7 @@ function breakoutGraph(record) {
   }
 
   Ext.Ajax.request({
-    url: '/metrics/expand/',
+    url: '/twiki/metrics/expand/',
     params: {
       groupByExpr: '1',
       leavesOnly: '1',
