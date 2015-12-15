@@ -61,6 +61,9 @@ limitations under the License. -->
   <body>
     <div class="header">
       <span class="title">Graphite</span>
+      <span style="background-color: rgb(213, 87, 87); padding: 5px 5px 3px 5px;margin-left:100px;font-size: 14px;">
+          Queries covering a time range greater than 2 weeks can have significant impact on Twiki availability and should be avoided.
+      </span>
       <div class="nav">
         <ul>
         {% if user.is_authenticated %}

@@ -61,4 +61,29 @@
   <body>
     <div id='merge'>Drop To Merge</div>
   </body>
+
+  <script>
+      var checkExist = setInterval(function() {
+          if (document.getElementsByClassName("x-panel-tbar").length) {
+
+              var div = document.createElement('div');
+              var closeLink = document.createElement('a');
+              closeLink.setAttribute("href", "#");
+              closeLink.setAttribute("style", "margin-left:5px;");
+              closeLink.innerHTML = "Hide";
+
+              closeLink.addEventListener('click', function() {
+                  div.style.display = "none";
+              });
+
+              div.setAttribute("style", "background-color:rgb(213, 87, 87); padding: 9px 2px 5px 6px; font-size: 14px");
+              div.setAttribute("id", "twiki-banner");
+              div.innerHTML = "Queries covering a time range greater than 2 weeks can have significant impact on Twiki availability and should be avoided.";
+              div.appendChild(closeLink);
+              document.getElementsByClassName("x-panel-tbar")[0].appendChild(div);
+
+              clearInterval(checkExist);
+          }
+      }, 100);
+  </script>
 </html>
